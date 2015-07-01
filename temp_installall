@@ -1,0 +1,59 @@
+# Precision Immunotherapy Pipeline Dockerfile
+#
+# 
+# Build with: sudo docker build --rm --no-cache -t pimmuno - < Dockerfile
+# Run with: sudo docker run -i -t pimmuno /bin/bash
+
+# Use ubuntu
+
+# Get the essentials
+apt-get update
+apt-get install -y software-properties-common wget libgomp1 curl build-essential checkinstall git openjdk-7-jre maven python-dev libpng-dev
+
+# Install zlib for samtools
+curl -L http://zlib.net/zlib-1.2.8.tar.gz > zlib-1.2.8.tar.gz 
+tar -zxvf zlib-1.2.8.tar.gz ; rm zlib-1.2.8.tar.gz
+cd zlib-1.2.8 ; ./configure ; make install; cd ../
+
+# Install ncurses for samtools
+#wget -c http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz
+#tar -zxvf ncurses-5.9.tar.gz ; rm ncurses-5.9.tar.gz
+#cd ncurses-5.9 ; ./configure ; make ; make install; cd ../
+apt-get install -y ncurses-dev
+
+# Install samtools, bcftools and htslib
+curl -L http://sourceforge.net/projects/samtools/files/samtools/1.2/samtools-1.2.tar.bz2/download > samtools.tar.bz2
+curl -L http://sourceforge.net/projects/samtools/files/samtools/1.2/bcftools-1.2.tar.bz2/download > bcftools.tar.bz2
+curl -L http://sourceforge.net/projects/samtools/files/samtools/1.2/htslib-1.2.1.tar.bz2/download > htslib.tar.bz2
+bunzip2 samtools.tar.bz2 bcftools.tar.bz2 htslib.tar.bz2
+tar -xvf samtools.tar; rm samtools.tar
+tar -xvf bcftools.tar; rm bcftools.tar
+tar -xvf htslib.tar  ; rm htslib.tar
+cd samtools* ; make prefix=/usr/local/bin; make install; cd ../
+cd bcftools* ; make prefix=/usr/local/bin; make install; cd ../
+cd htslib* ; ./configure;  make prefix=/usr/local/bin; make install; cd ../
+
+# Install MuTect
+mkdir mutect; cd mutect
+wget -c http://www.broadinstitute.org/cancer/cga/sites/default/files/data/tools/mutect/muTect-1.1.4-bin.zip
+unzip muTect-1.1.4-bin.zipi; cd ../
+
+# Install RADIA
+wget -c https://bootstrap.pypa.io/get-pip.py; python get-pip.py
+pip install pysam ; rm get-pip.py
+wget -c https://users.soe.ucsc.edu/~kent/src/blatSrc.zip
+unzip blatSrc.zip; cd blatSrc; mkdir ~/bin ~/lib ~/bin/$MACHTYPE ~/lib/$MACHTYPE;
+echo "export PATH=${PATH}:~/bin/$MACHTYPE" >> ~/.bashrc ; source ~/.bashrc
+export MACHTYPE=${MACHTYPE} ; make ; cd ../
+curl -L http://sourceforge.net/projects/snpeff/files/snpEff_v3_3_core.zip/download > snpeff.zip
+unzip snpeff* ; rm snpeff.zip
+git clone https://github.com/aradenbaugh/radia.git
+
+# Install PHLAT
+wget -c https://raw.githubusercontent.com/Nanolx/patchimage/master/tools/gdown.pl
+gdown.pl 'https://drive.google.com/uc?export=download&confirm=yAjx&id=0Bz-w5tutuZIYY3h5YlMzTjhnbGM' index4phlat.gz
+curl -L "https://docs.google.com/uc?export=download&id=0Bz-w5tutuZIYeDU0VDRFWG9IVUE" > phlat-1.0.tar.gz
+tar -zxvf phlat-1.0.tar.gz; rm phlat-1.0.tar.gz; cd phlat-1.0
+mv ../index4phlat.gz . ; rm -rf index4phlat ; gunzip index4phlat.gz
+
+

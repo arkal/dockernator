@@ -1,0 +1,33 @@
+# Precision Immunotherapy Pipeline Dockerfile
+#
+# 
+# Build with: sudo docker build --rm --no-cache -t radia_samtools - < 04_02_radia_samtools_Dockerfile
+
+# Use ubuntu
+FROM aarjunrao/ubuntu
+
+MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
+
+# Install samtools, bcftools and htslib
+RUN curl -L http://sourceforge.net/projects/samtools/files/samtools/1.2/samtools-1.2.tar.bz2/download > samtools.tar.bz2
+RUN curl -L http://sourceforge.net/projects/samtools/files/samtools/1.2/bcftools-1.2.tar.bz2/download > bcftools.tar.bz2
+RUN curl -L http://sourceforge.net/projects/samtools/files/samtools/1.2/htslib-1.2.1.tar.bz2/download > htslib.tar.bz2
+RUN bunzip2 samtools.tar.bz2 bcftools.tar.bz2 htslib.tar.bz2
+RUN tar -xvf samtools.tar; rm samtools.tar
+RUN tar -xvf bcftools.tar; rm bcftools.tar
+RUN tar -xvf htslib.tar  ; rm htslib.tar
+RUN cd samtools* ; make prefix=/usr/local/bin; make install; cd ../
+RUN cd bcftools* ; make prefix=/usr/local/bin; make install; cd ../
+RUN cd htslib* ; ./configure;  make prefix=/usr/local/bin; make install; cd ../
+
+# Install RADIA
+RUN wget -c https://bootstrap.pypa.io/get-pip.py; python get-pip.py
+RUN pip install pysam ; rm get-pip.py
+RUN wget -c https://users.soe.ucsc.edu/~kent/src/blatSrc.zip
+RUN unzip blatSrc.zip; cd blatSrc; mkdir ~/bin ~/lib ~/bin/$MACHTYPE ~/lib/$MACHTYPE;
+RUN echo "export PATH=${PATH}:~/bin/$MACHTYPE" >> ~/.bashrc ; source ~/.bashrc
+RUN export MACHTYPE=${MACHTYPE} ; make ; cd ../
+RUN curl -L http://sourceforge.net/projects/snpeff/files/snpEff_v3_3_core.zip/download > snpeff.zip
+RUN unzip snpeff* ; rm snpeff.zip
+RUN git clone https://github.com/aradenbaugh/radia.git
+
