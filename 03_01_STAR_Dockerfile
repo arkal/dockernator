@@ -1,13 +1,14 @@
 # Precision Immunotherapy Pipeline Dockerfile
 #
 # 
-# Build with: sudo docker build --rm --no-cache -t STAR - < 03_01_STAR_Dockerfile
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/star - < 03_01_STAR_Dockerfile
 
 # Use ubuntu
-FROM aarjunrao/ubuntu
+FROM aarjunrao/ubuntu:latest
 
 MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
 
 # Get the essentials
+WORKDIR /home
 RUN git clone -b STAR_2.4.1d https://github.com/alexdobin/STAR.git
 RUN export PATH=${PATH}:`pwd`/STAR/bin/bin/Linux_x86_64/
