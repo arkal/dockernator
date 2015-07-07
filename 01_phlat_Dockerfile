@@ -8,11 +8,20 @@ FROM aarjunrao/ubuntu
 
 MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
 
-# Install PHLAT
+# Install bowtie2
 WORKDIR /home
+RUN curl -L http://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.2.3/bowtie2-2.2.3-source.zip/download > bowtie2-2.2.3-source.zip
+RUN unzip bowtie2-2.2.3-source.zip && rm bowtie2-2.2.3-source.zip ; cd bowtie2-2.2.3 && make
+RUN cp bowtie2-2.2.3/bowtie2* /usr/local/bin
+
+# Install PHLAT
 RUN wget -c https://raw.githubusercontent.com/Nanolx/patchimage/master/tools/gdown.pl
 RUN gdown.pl 'https://drive.google.com/uc?export=download&confirm=yAjx&id=0Bz-w5tutuZIYY3h5YlMzTjhnbGM' index4phlat.gz
 RUN curl -L "https://docs.google.com/uc?export=download&id=0Bz-w5tutuZIYeDU0VDRFWG9IVUE" > phlat-1.0.tar.gz
-RUN tar -zxvf phlat-1.0.tar.gz; rm phlat-1.0.tar.gz; 
+RUN tar -zxvf phlat-1.0.tar.gz; && rm phlat-1.0.tar.gz; 
 WORKDIR phlat-1.0
 RUN mv ../index4phlat.gz . ; rm -rf index4phlat ; gunzip index4phlat.gz
+
+# Get wrapper from github
+WORKDIR /home
+RUN 
