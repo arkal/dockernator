@@ -10,5 +10,4 @@ MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
 
 # Get the essentials
 WORKDIR /home
-RUN git clone -b 0.7.9a https://github.com/lh3/bwa.git
-RUN export PATH=${PATH}:`pwd`/bwa
+RUN git clone -b 0.7.9a https://github.com/lh3/bwa.git; cd bwa; make && cp bwa /usr/local/bin/bwa

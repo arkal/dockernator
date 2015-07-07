@@ -26,10 +26,9 @@ RUN wget -c https://bootstrap.pypa.io/get-pip.py; python get-pip.py
 RUN pip install pysam ; rm get-pip.py
 RUN wget -c https://users.soe.ucsc.edu/~kent/src/blatSrc.zip; unzip blatSrc.zip; rm blatSrc.zip
 WORKDIR blatSrc
-RUN if [ ! -d ~/bin ]; then mkdir ~/bin; fi; if [ ! -d  ~/lib ]; then mkdir ~/ib; fi; if [ ! -d ~/bin/$MACHTYPE ]; then mkdir ~/bin/$MACHTYPE; fi; if [ ! -d ~/lib/$MACHTYPE ]; then mkdir ~/lib/$MACHTYPE; fi
-RUN echo "export PATH=${PATH}:~/bin/$MACHTYPE" >> ~/.bashrc ; export PATH=${PATH}:~/bin/$MACHTYPE
-RUN export MACHTYPE=${MACHTYPE} ; make
+RUN export MACHTYPE="x86_64"; if [ ! -d ~/bin ]; then mkdir ~/bin; fi; if [ ! -d  ~/lib ]; then mkdir ~/ib; fi; if [ ! -d ~/bin/$MACHTYPE ]; then mkdir ~/bin/$MACHTYPE; fi; if [ ! -d ~/lib/$MACHTYPE ]; then mkdir ~/lib/$MACHTYPE; fi ; make
+RUN chmod +x ~/bin/x86_64/* && cp ~/bin/x86_64/* /usr/local/bin
 WORKDIR /home
 RUN curl -L http://sourceforge.net/projects/snpeff/files/snpEff_v3_3_core.zip/download > snpeff.zip; unzip snpeff* ; rm snpeff.zip
-RUN git clone https://github.com/aradenbaugh/radia.git
+RUN git clone https://github.com/aradenbaugh/radia.git; chmod +x radia/scripts/* && cp radia/scripts/* /usr/local/bin
 

@@ -1,7 +1,7 @@
 # Precision Immunotherapy Pipeline Dockerfile
 #
 # 
-# Build with: sudo docker build --force-rm=true --no-cache -t workdir/phlat - < 01_phlat_Dockerfile
+# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/phlat - < 01_phlat_Dockerfile
 
 # Use ubuntu
 FROM aarjunrao/ubuntu
