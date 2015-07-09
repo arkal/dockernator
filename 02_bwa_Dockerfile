@@ -8,6 +8,31 @@ FROM aarjunrao/ubuntu:latest
 
 MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
 
-# Get the essentials
+# Get UCSC 2bit to fa if indexing is required
+WORKDIR /home
+RUN wget -c http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa; mv twoBitToFa /usr/local/bin && chmod +x /usr/local/bin/twoBitToFa
+RUN for i in {1..22} X Y M; do echo chr${i}>> chr_names.list; done
+
+# Install samtools, bcftools and htslib
+RUN curl -L http://sourceforge.net/projects/samtools/files/samtools/1.2/samtools-1.2.tar.bz2/download > samtools.tar.bz2; \
+    curl -L http://sourceforge.net/projects/samtools/files/samtools/1.2/bcftools-1.2.tar.bz2/download > bcftools.tar.bz2; \
+    curl -L http://sourceforge.net/projects/samtools/files/samtools/1.2/htslib-1.2.1.tar.bz2/download > htslib.tar.bz2; \
+    bunzip2 samtools.tar.bz2 bcftools.tar.bz2 htslib.tar.bz2
+RUN tar -xvf samtools.tar && rm samtools.tar; \
+    tar -xvf bcftools.tar && rm bcftools.tar; \
+    tar -xvf htslib.tar && rm htslib.tar
+RUN cd samtools* ; make prefix=/usr/local/bin; make install
+RUN cd bcftools* ; make prefix=/usr/local/bin; make install
+RUN cd htslib* ; ./configure;  make prefix=/usr/local/bin; make install
+
+# Get PICARD tools
+
+RUN curl -L https://github.com/broadinstitute/picard/releases/download/1.135/picard-tools-1.135.zip > picard-tools-1.135.zip; \ 
+    unzip picard-tools-1.135.zip && rm picard-tools-1.135.zip 
+
+# Get bwa
 WORKDIR /home
 RUN git clone -b 0.7.9a https://github.com/lh3/bwa.git; cd bwa; make && cp bwa /usr/local/bin/bwa
+
+ENTRYPOINT ["python", "/home/docker_scripts/run_bwa.py"]
+CMD ["-h"]

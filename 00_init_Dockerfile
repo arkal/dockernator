@@ -20,3 +20,7 @@ RUN tar -zxvf zlib-1.2.8.tar.gz ; rm zlib-1.2.8.tar.gz
 WORKDIR zlib-1.2.8
 RUN ./configure ; make install; cd ../
 WORKDIR /home
+
+# Get wrappers from github
+WORKDIR /home
+RUN git clone https://github.com/arkal/docker_scripts.git; chmod +x docker_scripts/*.py
