@@ -1,0 +1,19 @@
+# Precision Immunotherapy Pipeline Dockerfile
+#
+# 
+# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/mhcii - < 07_02_MHC_II_Dockerfile
+
+# Use ubuntu
+FROM aarjunrao/ubuntu
+
+MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
+
+# Install pre-reqs
+RUN apt-get install -y gawk tcsh
+
+#Install IEDB MHC tools
+
+WORKDIR /home
+RUN wget -c http://tools.immuneepitope.org/static/download/IEDB_MHC_II-2.13.tar.gz
+RUN tar -zxvf IEDB_MHC_II-2.13.tar.gz && rm IEDB_MHC_II-2.13.tar.gz 
+RUN cd mhc_ii && ./configure.py
