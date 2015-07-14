@@ -14,6 +14,10 @@ RUN curl -L http://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.2.3/bowti
 RUN unzip bowtie2-2.2.3-source.zip && rm bowtie2-2.2.3-source.zip ; cd bowtie2-2.2.3 && make
 RUN cp bowtie2-2.2.3/bowtie2* /usr/local/bin
 
+# Get pip and pysam
+RUN wget -c https://bootstrap.pypa.io/get-pip.py; python get-pip.py
+RUN pip install pysam ; rm get-pip.py
+ 
 # Install PHLAT
 RUN wget -c https://raw.githubusercontent.com/Nanolx/patchimage/master/tools/gdown.pl
 RUN perl gdown.pl 'https://drive.google.com/uc?export=download&confirm=yAjx&id=0Bz-w5tutuZIYY3h5YlMzTjhnbGM' index4phlat.gz
