@@ -1,0 +1,19 @@
+# Precision Immunotherapy Pipeline Dockerfile
+#
+# 
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/star - < 03_02_RSEM_Dockerfile
+
+# Use ubuntu
+FROM aarjunrao/bowtie
+
+MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
+
+# Get the essentials
+RUN apt-get install -y r-base
+
+# Get rsem 
+WORKDIR /home
+RUN git clone -b v1.2.19 https://github.com/deweylab/RSEM.git
+RUN cd RSEM && make && cp rsem* WHAT_IS_NEW /usr/local/bin/
+ENTRYPOINT ['python', '/home/docker_scripts/run_rsem.py']
+CMD ['-h']
