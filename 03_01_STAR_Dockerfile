@@ -2,15 +2,23 @@
 #
 # 
 # Build with: sudo docker build --force-rm --no-cache -t aarjunrao/star - < 03_01_STAR_Dockerfile
+# Run with sudo docker run -v , <IO_folder>:/home/datadir -i -t aarjunrao/star <parameters>
 
 # Use ubuntu
-FROM aarjunrao/ubuntu:latest
+FROM aarjunrao/pimmuno
 
 MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
 
-# Get the essentials
+# Get UCSC 2bit to fa if indexing is required
 WORKDIR /home
-RUN git clone -b STAR_2.4.2a_modified https://github.com/alexdobin/STAR.git && \
+RUN wget -c http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa; mv twoBitToFa /usr/local/bin && chmod +x /usr/local/bin/twoBitToFa
+
+# Get Docker scripts
+RUN git clone https://github.com/arkal/docker_scripts.git
+
+# Get STAR
+RUN git clone -b STAR_2.4.2a https://github.com/alexdobin/STAR.git && \
     cp STAR/bin/Linux_x86_64/* /usr/local/bin/
-ENTRYPOINT ['python', '/home/docker_scripts/run_STAR.py']
-CMD ['-h']
+
+ENTRYPOINT ["python", "/home/docker_scripts/run_STAR.py"]
+CMD ["-h"]

@@ -4,7 +4,7 @@
 # Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/mhci - < 07_01_MHC_I_Dockerfile
 
 # Use ubuntu
-FROM aarjunrao/ubuntu
+FROM aarjunrao/pimmuno
 
 MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
 

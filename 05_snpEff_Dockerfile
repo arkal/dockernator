@@ -1,10 +1,10 @@
 # Precision Immunotherapy Pipeline Dockerfile
 #
 # 
-# Build with: sudo docker build --rm --no-cache -t snpEff - < 05_snpEff_Dockerfile
+# Build with: sudo docker build --rm --no-cache -t aarjunrao/snpEff - < 05_snpEff_Dockerfile
 
 # Use ubuntu
-FROM aarjunrao/ubuntu
+FROM aarjunrao/pimmuno
 
 MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
 

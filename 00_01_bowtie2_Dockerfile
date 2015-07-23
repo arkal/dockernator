@@ -3,7 +3,7 @@
 # 
 # Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/bowtie - < 00_01_bowtie2_Dockerfile
 # Use ubuntu
-FROM aarjunrao/ubuntu:latest
+FROM aarjunrao/pimmuno
 
 MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
 

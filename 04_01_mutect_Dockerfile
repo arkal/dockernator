@@ -4,7 +4,7 @@
 # Build with: sudo docker build --force-rm --no-cache -t aarjunrao/mutect - < 04_01_mutect_Dockerfile
 
 # Use ubuntu
-FROM aarjunrao/ubuntu:latest
+FROM aarjunrao/pimmuno
 
 MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
 

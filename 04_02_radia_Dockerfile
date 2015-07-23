@@ -1,10 +1,10 @@
 # Precision Immunotherapy Pipeline Dockerfile
 #
 # 
-# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/radia_samtools - < 04_02_radia_Dockerfile
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/radia - < 04_02_radia_Dockerfile
 
 # Use ubuntu
-FROM aarjunrao/ubuntu:latest
+FROM aarjunrao/pimmuno
 
 MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
 

@@ -2,16 +2,15 @@
 #
 # 
 # Build with: sudo docker build --force-rm --no-cache -t aarjunrao/bwa - < 02_bwa_Dockerfile
-
+# Run with sudo docker run -v , <IO_folder>:/home/datadir -i -t aarjunrao/bwa <parameters>
+#
 # Use ubuntu
-FROM aarjunrao/ubuntu:latest
-
+FROM aarjunrao/pimmuno
 MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
 
 # Get UCSC 2bit to fa if indexing is required
 WORKDIR /home
 RUN wget -c http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa; mv twoBitToFa /usr/local/bin && chmod +x /usr/local/bin/twoBitToFa
-RUN for i in {1..22} X Y M; do echo chr${i}>> chr_names.list; done
 
 # Install samtools, bcftools and htslib
 RUN curl -L http://sourceforge.net/projects/samtools/files/samtools/1.2/samtools-1.2.tar.bz2/download > samtools.tar.bz2; \
@@ -30,8 +29,10 @@ RUN cd htslib* ; ./configure;  make prefix=/usr/local/bin; make install
 RUN curl -L https://github.com/broadinstitute/picard/releases/download/1.135/picard-tools-1.135.zip > picard-tools-1.135.zip; \ 
     unzip picard-tools-1.135.zip && rm picard-tools-1.135.zip 
 
+# Get Docker scripts
+RUN git clone https://github.com/arkal/docker_scripts.git
+
 # Get bwa
-WORKDIR /home
 RUN git clone -b 0.7.9a https://github.com/lh3/bwa.git; cd bwa; make && cp bwa /usr/local/bin/bwa
 
 ENTRYPOINT ["python", "/home/docker_scripts/run_bwa.py"]
