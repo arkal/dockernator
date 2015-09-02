@@ -1,0 +1,16 @@
+# Precision Immunotherapy Pipeline Dockerfile
+#
+# 
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/cutadapt:runtime - < cutadapt_runner_Dockerfile
+
+# Use bwa
+FROM aarjunrao/cutadapt:latest
+MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
+
+#Get Docker scripts
+WORKDIR /home
+RUN git clone https://github.com/arkal/docker_scripts.git
+
+
+ENTRYPOINT ["python", "/home/docker_scripts/run_cutadapt.py"]
+CMD ["-h"]
