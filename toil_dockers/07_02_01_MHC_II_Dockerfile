@@ -1,0 +1,16 @@
+# Precision Immunotherapy Pipeline Dockerfile
+#
+# 
+# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/mhcii - < 07_02_01_MHC_II_Dockerfile
+
+# Use iedbmhcii
+FROM aarjunrao/iedbmhcii
+
+MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
+
+# get wrapper_scripts
+RUN  git clone https://github.com/arkal/toil_docker_wrappers.git 
+RUN mkdir /data
+WORKDIR /data 
+ENTRYPOINT ["sh", "/home/toil_docker_wrappers/mhcii_wrapper.sh"]
+CMD ["-h"]

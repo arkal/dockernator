@@ -1,0 +1,33 @@
+# Precision Immunotherapy Pipeline Dockerfile
+#
+# 
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/pimmuno - < 00_00_init_Dockerfile
+
+# Use ubuntu
+FROM aarjunrao/ubuntu
+
+MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
+
+WORKDIR /home
+# Get the essentials
+RUN apt-get update
+RUN apt-get install -y \
+        software-properties-common \
+        wget \
+        libgomp1 \
+        curl \
+        build-essential \
+        checkinstall \
+        git \
+        openjdk-7-jre \
+        maven \
+        python-dev \
+        libpng-dev \
+        ncurses-dev
+
+# Install zlib for samtools
+RUN curl -L http://zlib.net/zlib-1.2.8.tar.gz > zlib-1.2.8.tar.gz 
+RUN tar -zxvf zlib-1.2.8.tar.gz ; rm zlib-1.2.8.tar.gz
+WORKDIR zlib-1.2.8
+RUN ./configure ; make install; cd ../
+WORKDIR /home

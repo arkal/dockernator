@@ -20,8 +20,9 @@ RUN curl -L "https://docs.google.com/uc?export=download&id=0Bz-w5tutuZIYeDU0VDRF
     tar -zxvf phlat-1.0.tar.gz && rm phlat-1.0.tar.gz
 
 # get wrapper_scripts
-RUN  git clone https://github.com/arkal/toil_wrapper_scripts.git
+RUN  git clone https://github.com/arkal/toil_docker_wrappers.git 
+RUN mkdir /data
 WORKDIR /data 
-ENTRYPOINT ["sh", "/home/toil_wrapper_scripts/phlat_wrapper.sh"]
+ENTRYPOINT ["sh", "/home/toil_docker_wrappers/phlat_wrapper.sh"]
 CMD ["-h"]
  

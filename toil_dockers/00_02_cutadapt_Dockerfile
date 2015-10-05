@@ -1,0 +1,28 @@
+# Precision Immunotherapy Pipeline Dockerfile
+#
+# 
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/cutadapt - < 00_02_cutadapt_Dockerfile
+# Run with: sudo docker run -it aarjunrao/cutadapt
+
+# Use ubuntu
+FROM aarjunrao/ubuntu
+
+MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
+
+WORKDIR /home
+# Get the essentials
+RUN apt-get update &&  apt-get install -y \
+        wget \
+        build-essential \
+        python-dev
+
+# Install pip
+RUN wget -c https://bootstrap.pypa.io/get-pip.py && python get-pip.py
+
+# Install cutadapt
+RUN pip install cutadapt
+
+# Set entrypoint
+ENTRYPOINT ["/usr/local/bin/cutadapt"]
+CMD ["--help"]
+

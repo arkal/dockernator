@@ -1,0 +1,14 @@
+# Precision Immunotherapy Pipeline Dockerfile
+#
+# 
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/filterradia - < 04_02_02_filterradia_Dockerfile
+
+# Use radiabase
+FROM aarjunrao/radiabase
+
+MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
+
+# get wrapper_scripts
+RUN cd /home/toil_docker_wrappers && git pull
+ENTRYPOINT ["sh", "/home/toil_docker_wrappers/filterradia_wrapper.sh"]
+CMD ["-h"]

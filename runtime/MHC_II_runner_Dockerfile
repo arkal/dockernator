@@ -11,6 +11,5 @@ MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
 WORKDIR /home
 RUN git clone https://github.com/arkal/docker_scripts.git
 
-
-ENTRYPOINT [""]
-CMD [""]
+ENTRYPOINT ["python", "run_MHC_prediction.py"]
+CMD ["-h"]
