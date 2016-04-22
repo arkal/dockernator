@@ -1,0 +1,11 @@
+# ProTECT base Dockerfile for STAR and STARlong
+#
+# 
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/starbase - < 03_01_00_STAR_Dockerfile
+
+# Use ubuntu
+FROM aarjunrao/pimmuno
+
+# Get STAR
+RUN git clone -b STAR_2.4.2a https://github.com/alexdobin/STAR.git && \
+    cp STAR/bin/Linux_x86_64/* /usr/local/bin/

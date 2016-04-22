@@ -1,0 +1,13 @@
+# ProTECT Dockerfile for radia
+#
+# 
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/radia - < 04_02_01_radia_Dockerfile
+# Run with sudo docker run -v <IO_folder>:/data aarjunrao/radia <parameters>
+
+# Use radiabase
+FROM aarjunrao/radiabase
+
+# get wrapper_scripts
+WORKDIR /data
+ENTRYPOINT ["sh", "/home/toil_docker_wrappers/radia_wrapper.sh"]
+CMD ["-h"]

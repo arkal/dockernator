@@ -1,0 +1,12 @@
+# ProTECT base Dockerfile for all mhc binding predictors
+#
+# 
+# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/mhcbase - < 07_00_MHC_Dockerfile
+
+# Use pimmuno
+FROM aarjunrao/pimmuno
+
+MAINTAINER Arjun Rao aarjunrao@soe.ucsc.edu
+
+# Install pre-reqs
+RUN apt-get install -y gawk tcsh

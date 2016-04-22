@@ -1,0 +1,19 @@
+# ProTECT Dockerfile for PICARD tools
+#
+# 
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/picard - < 02_03_picard_Dockerfile
+# Run with sudo docker run -v <IO_folder>:/data aarjunrao/picard <parameters>
+
+# Use pimmuno
+FROM aarjunrao/pimmuno
+
+# Get PICARD
+RUN curl -L https://github.com/broadinstitute/picard/releases/download/1.135/picard-tools-1.135.zip > picard-tools-1.135.zip; \ 
+    unzip picard-tools-1.135.zip && rm picard-tools-1.135.zip
+RUN mkdir /opt/pimmuno/ && mv picard-tools-1.135 /opt/pimmuno/picard
+
+# get wrapper_scripts
+RUN git clone https://github.com/arkal/toil_docker_wrappers.git
+WORKDIR /data
+ENTRYPOINT ["sh", "/home/toil_docker_wrappers/picard_wrapper.sh"]
+CMD ["-h"]
