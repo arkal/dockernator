@@ -1,0 +1,27 @@
+# ProTECT base Dockerfile for radia and filter-radia
+#
+# 
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/somaticsniper - < 04_05_somaticsniper_Dockerfile
+
+# Use samtools 
+FROM aarjunrao/pimmuno
+
+# get additional dependencies
+RUN apt-get install -y cmake zlib1g-dev
+
+# Install MuSE
+RUN wget -c https://github.com/genome/somatic-sniper/archive/v1.0.5.0.tar.gz \
+    && tar -zxvf v1.0.5.0.tar.gz \
+    && rm -rf v1.0.5.0.tar.gz
+RUN cd somatic-sniper-1.0.5.0 \
+    && mkdir build && cd build \
+    && cmake ../ \
+    && make deps \
+    && make -j \
+    && make install
+
+# get wrapper_scripts
+RUN git clone https://github.com/arkal/toil_docker_wrappers.git
+WORKDIR /data
+ENTRYPOINT ["sh", "/home/toil_docker_wrappers/somaticsniper_wrapper.sh"]
+
