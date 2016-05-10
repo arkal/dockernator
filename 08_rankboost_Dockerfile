@@ -15,7 +15,6 @@ RUN git clone https://github.com/arkal/rankboost.git
 
 # get wrapper_scripts
 RUN  git clone https://github.com/arkal/toil_docker_wrappers.git 
-RUN mkdir /data
 WORKDIR /data 
-ENTRYPOINT ["sh", "/home/toil_docker_wrappers/rankboost_wrapper.sh"]
+ENTRYPOINT ["bash", "/home/toil_docker_wrappers/rankboost_wrapper.sh"]
 CMD ["-h"]
