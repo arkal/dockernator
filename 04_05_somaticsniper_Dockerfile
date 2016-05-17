@@ -1,9 +1,9 @@
-# ProTECT base Dockerfile for radia and filter-radia
+# ProTECT base Dockerfile for somatic sniper
 #
 # 
 # Build with: sudo docker build --force-rm --no-cache -t aarjunrao/somaticsniper - < 04_05_somaticsniper_Dockerfile
 
-# Use samtools 
+# Use pimmuno 
 FROM aarjunrao/pimmuno
 
 # get additional dependencies
