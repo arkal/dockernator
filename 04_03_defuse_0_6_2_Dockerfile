@@ -8,26 +8,20 @@ FROM aarjunrao/samtools
 
 MAINTAINER Jacob Pfeil, jpfeil@ucsc.edu
 
-RUN apt-get update --fix-missing; apt-get install -y r-base
+RUN apt-get update --fix-missing; apt-get install -y r-base libboost-all-dev
 
-# TODO This does not work
 # RUN R -e 'install.packages("ada", contriburl="https://cran.rstudio.com/src/contrib")'
 RUN wget -O /tmp/ada_2.0-3.tar.gz https://cran.r-project.org/src/contrib/ada_2.0-5.tar.gz 
 RUN R CMD INSTALL /tmp/ada_2.0-3.tar.gz
 
 WORKDIR /home
 
-
-# Defuse needs boost c++ dev libraries
-RUN wget http://downloads.sourceforge.net/project/boost/boost/1.60.0/boost_1_60_0.tar.gz; \
-    tar xvf boost_1_60_0.tar.gz; export CPLUS_INCLUDE_PATH=/home/boost_1_60_0:$CPLUS_INCLUDE_PATH 
-
 # Build external software
 RUN wget http://downloads.sourceforge.net/project/bowtie-bio/bowtie/1.1.2/bowtie-1.1.2-linux-x86_64.zip; \
     unzip bowtie-1.1.2-linux-x86_64.zip; \
     mkdir -p /opt/bowtie; \
-    cp bowtie-1.1.2/bowtie /opt/bowtie/bowtie; \
-    cp bowtie-1.1.2/bowtie-build /opt/bowtie/bowtie-build
+    ln -s /home/bowtie-1.1.2/bowtie /opt/bowtie/bowtie; \
+    ln -s /home/bowtie-1.1.2/bowtie-build /opt/bowtie/bowtie-build
 
 # gmap: /usr/local/bin/gmap
 # gmap_build: /usr/local/bin/gmap_build
