@@ -16,6 +16,9 @@ RUN R CMD INSTALL /tmp/ada_2.0-3.tar.gz
 
 WORKDIR /home
 
+# Download Wrappers 
+RUN git clone https://github.com/jpfeil/toil_docker_wrappers.git /home/docker_wrappers
+
 # Build external software
 RUN wget http://downloads.sourceforge.net/project/bowtie-bio/bowtie/1.1.2/bowtie-1.1.2-linux-x86_64.zip; \
     unzip bowtie-1.1.2-linux-x86_64.zip; \
@@ -40,5 +43,5 @@ RUN wget http://downloads.sourceforge.net/project/defuse/defuse/0.6/defuse-0.6.2
 
 WORKDIR /data
 
-ENTRYPOINT ["sh", "/home/toil_docker_wrappers/defuse_wrapper.sh"]
+ENTRYPOINT ["sh", "/home/docker_wrappers/defuse_wrapper.sh"]
 CMD ["-h"]
