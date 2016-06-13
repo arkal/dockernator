@@ -9,7 +9,7 @@ FROM aarjunrao/bowtie
 
 # Get pip and pysam
 RUN wget -c https://bootstrap.pypa.io/get-pip.py; python get-pip.py
-RUN pip install pysam ; rm get-pip.py
+RUN pip install pysam==0.8.4 ; rm get-pip.py # PHLAT fails with later versions of pysam
  
 # Install PHLAT
 RUN wget -O /usr/local/bin/gdown.pl  -c https://raw.githubusercontent.com/Nanolx/patchimage/master/tools/gdown.pl && \
