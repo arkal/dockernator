@@ -11,6 +11,7 @@ FROM aarjunrao/mhcbase
 RUN wget -c http://tools.immuneepitope.org/static/download/IEDB_MHC_I-2.13.tar.gz
 RUN tar -zxvf IEDB_MHC_I-2.13.tar.gz && rm IEDB_MHC_I-2.13.tar.gz 
 RUN cd mhc_i && ./configure
+RUN sed -i ':a;N;$!ba;s/if sys.stdin.*args.append(infile)/## We removed some lines here ##/g' /home/mhc_i/src/predict_binding.py
 RUN ln -s -T /home/mhc_i/src/predict_binding.py /usr/local/bin/predict_binding.py
 
 # get wrapper_scripts
