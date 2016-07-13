@@ -7,15 +7,17 @@
 FROM aarjunrao/pimmuno
 
 # get additional dependencies
-RUN apt-get install -y cmake zlib1g-dev
+RUN apt-get update \
+    && apt-get install -y cmake \
+                          zlib1g-dev
 
 # Install MuSE
-RUN wget -c https://github.com/genome/somatic-sniper/archive/v1.0.5.0.tar.gz \
-    && tar -zxvf v1.0.5.0.tar.gz \
-    && rm -rf v1.0.5.0.tar.gz
-RUN cd somatic-sniper-1.0.5.0 \
-    && mkdir build && cd build \
-    && cmake ../ \
+RUN git clone https://github.com/genome/somatic-sniper.git \
+    && cd somatic-sniper \
+    && git checkout -b tags/v1.0.4.0 \
+    && mkdir build \
+    && cd build \
+    && cmake /home/somatic-sniper \
     && make deps \
     && make -j \
     && make install
