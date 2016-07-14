@@ -1,0 +1,26 @@
+# ProTECT base Dockerfile for vardict
+#
+# 
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/vardict - < 04_06_vardict_Dockerfile
+
+# Use pimmuno 
+FROM aarjunrao/pimmuno
+
+# Get the essentials
+RUN apt-get update \
+    && apt-get install -y default-jdk \
+                          r-base
+
+# Install VarDictJava
+WORKDIR /opt
+RUN git clone --recursive https://github.com/AstraZeneca-NGS/VarDictJava.git \
+    && cd VarDictJava \
+    && ./gradlew clean installApp
+
+
+WORKDIR /home
+# get wrapper_scripts
+RUN git clone https://github.com/arkal/toil_docker_wrappers.git
+WORKDIR /data
+ENTRYPOINT ["sh", "/home/toil_docker_wrappers/vardict_wrapper.sh"]
+

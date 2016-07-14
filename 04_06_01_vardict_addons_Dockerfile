@@ -1,0 +1,12 @@
+# ProTECT Dockerfile for the vardict addons
+#
+# 
+# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/vardict-addons - < 04_06_01_vardict_addons_Dockerfile
+# Run with sudo docker run -v <IO_folder>:/data aarjunrao/vardict-addons <parameters>
+
+# Use vardict
+FROM aarjunrao/vardict
+
+# Set the wrapper
+ENTRYPOINT ["bash", "/home/toil_docker_wrappers/vardict_addons_wrapper.sh"]
+CMD ["-h"]
