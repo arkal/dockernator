@@ -1,0 +1,28 @@
+# ProTECT Dockerfile for STAR-Fusion
+#
+# Build with: sudo docker build --force-rm --no-cache -t jpfeil/star-fusion:protect - < 04_03__02_star_fusion_Dockerfile
+# Run with sudo docker run -v <IO_folder>:/data jpfeil/star-fusion:protect <parameters>
+
+# Use pimmuno
+FROM aarjunrao/samtools
+
+MAINTAINER Jacob Pfeil, jpfeil@ucsc.edu
+
+RUN apt-get update --fix-missing && \
+    apt-get install -y zlib1g-dev gzip perl libdb-dev 
+
+RUN cpan App::cpanminus && cpanm Set::IntervalTree && cpanm DB_File && cpanm URI
+
+WORKDIR /home
+
+# Download Wrappers 
+RUN git clone https://github.com/jpfeil/toil_docker_wrappers.git /home/docker_wrappers
+
+RUN git clone --recursive https://github.com/STAR-Fusion/STAR-Fusion.git
+
+ENV PATH "/home/STAR-Fusion/:$PATH"
+
+WORKDIR /data
+
+ENTRYPOINT ["sh", "/home/docker_wrappers/star_fusion_wrapper.sh"]
+CMD ["--help"]

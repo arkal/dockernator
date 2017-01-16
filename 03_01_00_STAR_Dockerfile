@@ -7,5 +7,5 @@
 FROM aarjunrao/pimmuno
 
 # Get STAR
-RUN git clone -b STAR_2.4.2a https://github.com/alexdobin/STAR.git && \
+RUN git clone -b 2.5.2b https://github.com/alexdobin/STAR.git && \
     cp STAR/bin/Linux_x86_64/* /usr/local/bin/
