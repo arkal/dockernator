@@ -13,14 +13,14 @@ RUN apt-get update --fix-missing && \
 
 RUN cpan App::cpanminus && cpanm Set::IntervalTree && cpanm DB_File && cpanm URI
 
-WORKDIR /home
+WORKDIR /opt
 
 # Download Wrappers 
 RUN git clone https://github.com/jpfeil/toil_docker_wrappers.git /home/docker_wrappers
 
 RUN git clone --recursive https://github.com/STAR-Fusion/STAR-Fusion.git
 
-ENV PATH "/home/STAR-Fusion/:$PATH"
+ENV PATH "/opt/STAR-Fusion/:$PATH"
 
 WORKDIR /data
 

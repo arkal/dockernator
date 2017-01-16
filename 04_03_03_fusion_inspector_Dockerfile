@@ -14,7 +14,7 @@ RUN apt-get update --fix-missing && \
 
 RUN cpan App::cpanminus && cpanm Set::IntervalTree && cpanm DB_File && cpanm URI
 
-WORKDIR /home
+WORKDIR /opt
 
 # Download Wrappers 
 RUN git clone https://github.com/jpfeil/toil_docker_wrappers.git /home/docker_wrappers
@@ -25,7 +25,7 @@ RUN wget -qO- https://github.com/FusionInspector/FusionInspector/releases/downlo
     wget -qO- wget http://research-pub.gene.com/gmap/src/gmap-gsnap-2016-11-07.tar.gz | tar xz && \
     cd gmap-2016-11-07 && ./configure && make && make check && make install
 
-ENV PATH "/home/FusionInspector_v0.8/:$PATH"
+ENV PATH "/opt/FusionInspector_v0.8/:$PATH"
 
 # FusionInspector needs the TRINITY_HOME environment variable
 ENV TRINITY_HOME "/home/trinityrnaseq-Trinity-v2.3.2/"
