@@ -5,7 +5,7 @@
 # Run with sudo docker run -v <IO_folder>:/data aarjunrao/star <parameters>
 
 # Use starbase
-FROM aarjunrao/starbase
+FROM jpfeil/starbase:2.5.2b
 
 # get wrapper_scripts
 RUN  git clone https://github.com/arkal/toil_docker_wrappers.git
