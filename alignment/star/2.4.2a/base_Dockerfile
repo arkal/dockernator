@@ -1,7 +1,7 @@
 # ProTECT base Dockerfile for STAR and STARlong
 #
 # 
-# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/starbase - < 03_01_00_STAR_Dockerfile
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/starbase:2.4.2a - < base_Dockerfile
 
 # Use ubuntu
 FROM aarjunrao/pimmuno

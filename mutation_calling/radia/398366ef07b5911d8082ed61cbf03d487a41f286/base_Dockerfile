@@ -1,7 +1,7 @@
 # ProTECT base Dockerfile for radia and filter-radia
 #
 # 
-# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/radiabase - < 04_02_00_radia_Dockerfile
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/radiabase:398366ef07b5911d8082ed61cbf03d487a41f286 - < base_Dockerfile
 
 # Use samtools 
 FROM aarjunrao/samtools

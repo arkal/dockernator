@@ -1,7 +1,7 @@
 # ProTECT base Dockerfile for all mhc binding predictors
 #
 # 
-# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/mhcbase - < 07_00_MHC_Dockerfile
+# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/mhcbase - < base_Dockerfile
 
 # Use pimmuno
 FROM aarjunrao/pimmuno

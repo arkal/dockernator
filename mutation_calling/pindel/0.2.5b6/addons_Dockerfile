@@ -1,11 +1,11 @@
 # ProTECT Dockerfile for the pindel addons
 #
 # 
-# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/pindel-addons - < 04_07_01_pindel_addons_Dockerfile
+# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/pindel-addons:0.2.5b6 - < addons_Dockerfile
 # Run with sudo docker run -v <IO_folder>:/data aarjunrao/pindel-addons <parameters>
 
 # Use pindel
-FROM aarjunrao/pindel
+FROM aarjunrao/pindel:0.2.5b6
 
 # Transfer the aux scripts to bin
 RUN cp /home/pindel/sam2pindel /home/pindel/pindel2vcf* /usr/local/bin/

@@ -1,11 +1,11 @@
 # ProTECT Dockerfile for the somatic sniper addons
 #
 # 
-# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/somaticsniper-addons - < 04_05_01_somaticsniper_addons_Dockerfile
+# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/somaticsniper-addons:1.0.4 - < addons_Dockerfile
 # Run with sudo docker run -v <IO_folder>:/data aarjunrao/somaticsniper-addons <parameters>
 
 # Use somatic sniper
-FROM aarjunrao/somaticsniper
+FROM aarjunrao/somaticsniper:1.0.4
 
 # Transfer the perl scripts to bin
 RUN cp /home/somatic-sniper/src/scripts/* /usr/local/bin/

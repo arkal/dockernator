@@ -1,11 +1,11 @@
 # ProTECT Dockerfile for STAR
 #
 # 
-# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/star - < 03_01_01_STAR_Dockerfile
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/star:2.4.2a - < star_Dockerfile
 # Run with sudo docker run -v <IO_folder>:/data aarjunrao/star <parameters>
 
 # Use starbase
-FROM aarjunrao/starbase
+FROM aarjunrao/starbase:2.4.2a
 
 # get wrapper_scripts
 RUN  git clone https://github.com/arkal/toil_docker_wrappers.git

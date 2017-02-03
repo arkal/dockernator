@@ -1,11 +1,11 @@
 # ProTECT Dockerfile for filter-radia
 #
 # 
-# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/filterradia - < 04_02_02_filterradia_Dockerfile
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/filterradia:398366ef07b5911d8082ed61cbf03d487a41f286 - < filterradia_Dockerfile
 # Run with sudo docker run -v <IO_folder>:/data aarjunrao/filterradia <parameters>
 
 # Use radiabase
-FROM aarjunrao/radiabase
+FROM aarjunrao/radiabase:398366ef07b5911d8082ed61cbf03d487a41f286
 
 # get wrapper_scripts
 WORKDIR /data

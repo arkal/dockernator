@@ -1,11 +1,11 @@
 # ProTECT Dockerfile for STARlong
 #
 # 
-# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/starlong - < 03_01_02_STARlong_Dockerfile
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/starlong:2.4.2a - < starlong_Dockerfile
 # Run with sudo docker run -v <IO_folder>:/data aarjunrao/starlong <parameters>
 
 # Use starbase
-FROM aarjunrao/starbase
+FROM aarjunrao/starbase:2.4.2a
 
 # get wrapper_scripts
 RUN  git clone https://github.com/arkal/toil_docker_wrappers.git
