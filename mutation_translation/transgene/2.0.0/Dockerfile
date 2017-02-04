@@ -7,6 +7,9 @@
 # Use pimmuno
 FROM aarjunrao/pimmuno
 
+RUN apt-get install -y python-pip
+RUN pip install pysam
+
 # Get transgene
 RUN git clone https://github.com/arkal/Transgene.git \
     && cd Transgene \
