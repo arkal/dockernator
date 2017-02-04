@@ -1,0 +1,30 @@
+# ProTECT Dockerfile for MuTect 1.1.7
+#
+# 
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/mutect:1.1.7 - < Dockerfile
+# Run with sudo docker run -v <IO_folder>:/data aarjunrao/mutect:1.1.7 <parameters>
+
+# Use pimmuno
+FROM aarjunrao/pimmuno
+
+# Get Java
+RUN apt-get update && apt-get install -y default-jdk
+
+# Get MuTect
+WORKDIR /home/mutect-src
+RUN git clone https://github.com/broadinstitute/mutect
+RUN git clone https://github.com/broadgsa/gatk-protected
+WORKDIR /home/mutect-src/gatk-protected
+RUN git reset --hard 3.1
+RUN mvn -Ddisable.queue install
+WORKDIR /home/mutect-src/mutect
+RUN mvn verify
+RUN mkdir -p /opt/pimmuno/mutect
+RUN mv target/mutect-1.1.7.jar /opt/pimmuno/mutect/mutect.jar
+
+# get wrapper_scripts
+WORKDIR /home
+RUN  git clone https://github.com/arkal/toil_docker_wrappers.git 
+WORKDIR /data 
+ENTRYPOINT ["sh", "/home/toil_docker_wrappers/mutect_wrapper.sh"]
+CMD ["-h"]

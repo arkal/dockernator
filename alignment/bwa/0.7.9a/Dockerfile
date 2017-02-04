@@ -1,0 +1,16 @@
+# ProTECT Dockerfile for bwa
+#
+# 
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/bwa:0.7.9a - < Dockerfile
+# Run with sudo docker run -v <IO_folder>:/data aarjunrao/bwa <parameters>
+
+# Use pimmuno
+FROM aarjunrao/pimmuno
+
+# Get bwa
+RUN git clone -b 0.7.9a https://github.com/lh3/bwa.git; cd bwa; make && cp bwa /usr/local/bin/bwa
+
+# get wrapper_scripts
+RUN git clone https://github.com/arkal/toil_docker_wrappers.git
+WORKDIR /data
+ENTRYPOINT ["sh", "/home/toil_docker_wrappers/bwa_wrapper.sh"]
