@@ -15,12 +15,14 @@ RUN cpan App::cpanminus && cpanm Set::IntervalTree && cpanm DB_File && cpanm URI
 
 WORKDIR /opt
 
-# Download Wrappers 
-RUN git clone https://github.com/jpfeil/toil_docker_wrappers.git /home/docker_wrappers
+RUN  wget -qO- https://github.com/alexdobin/STAR/archive/2.5.2b.tar.gz | tar xz
 
 RUN git clone --recursive https://github.com/STAR-Fusion/STAR-Fusion.git
 
-ENV PATH "/opt/STAR-Fusion/:$PATH"
+ENV PATH "/opt/STAR-2.5.2b/bin/Linux_x86_64:/opt/STAR-Fusion/:$PATH"
+
+# Download Wrappers 
+RUN git clone https://github.com/jpfeil/toil_docker_wrappers.git /home/docker_wrappers
 
 WORKDIR /data
 

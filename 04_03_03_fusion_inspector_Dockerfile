@@ -9,28 +9,35 @@ FROM aarjunrao/samtools
 MAINTAINER Jacob Pfeil, jpfeil@ucsc.edu
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y zlib1g-dev gzip perl libdb-dev build-essential wget make git \
-                       default-jre 
+    apt-get install -y dpkg zlib1g-dev gzip perl libdb-dev build-essential wget make git
+
+ RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee /etc/apt/sources.list.d/webupd8team-java.list && \
+     echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list && \
+     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 && \
+     apt-get update && \
+     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
+     apt-get install -y oracle-java8-installer
 
 RUN cpan App::cpanminus && cpanm Set::IntervalTree && cpanm DB_File && cpanm URI
 
 WORKDIR /opt
 
 # Download Wrappers 
-RUN git clone https://github.com/jpfeil/toil_docker_wrappers.git /home/docker_wrappers
+RUN git clone https://github.com/jpfeil/toil_docker_wrappers.git /opt/docker_wrappers
 
-RUN wget -qO- https://github.com/FusionInspector/FusionInspector/releases/download/v0.8.0/FusionInspector_v0.8.FULL.tar.gz | tar xz && \
+RUN git clone --recursive https://github.com/jpfeil/FusionInspector.git && \
+    wget -qO- https://github.com/alexdobin/STAR/archive/2.5.2b.tar.gz | tar xz && \
     wget -qO- wget https://github.com/trinityrnaseq/trinityrnaseq/archive/Trinity-v2.3.2.tar.gz | tar xz && \
-    cd trinityrnaseq-Trinity-v2.3.2 && make && cd /home && \
+    cd trinityrnaseq-Trinity-v2.3.2 && make && cd /opt && \
     wget -qO- wget http://research-pub.gene.com/gmap/src/gmap-gsnap-2016-11-07.tar.gz | tar xz && \
     cd gmap-2016-11-07 && ./configure && make && make check && make install
 
-ENV PATH "/opt/FusionInspector_v0.8/:$PATH"
+ENV PATH "/opt/FusionInspector/:/opt/STAR-2.5.2b/bin/Linux_x86_64/:$PATH"
 
 # FusionInspector needs the TRINITY_HOME environment variable
-ENV TRINITY_HOME "/home/trinityrnaseq-Trinity-v2.3.2/"
+ENV TRINITY_HOME "/opt/trinityrnaseq-Trinity-v2.3.2/"
 
 WORKDIR /data
 
-ENTRYPOINT ["sh", "/home/docker_wrappers/fusion_inspector_wrapper.sh"]
+ENTRYPOINT ["sh", "/opt/docker_wrappers/fusion_inspector_wrapper.sh"]
 CMD ["--help"]
