@@ -13,7 +13,7 @@ RUN pip install pysam
 # Get transgene
 RUN git clone https://github.com/arkal/Transgene.git \
     && cd Transgene \
-    && git checkout -b tags/releases/2.0.0 \
+    && git checkout releases/2.0.0 \
     && chmod +x transgene.py \
     && cp transgene.py /usr/local/bin
 

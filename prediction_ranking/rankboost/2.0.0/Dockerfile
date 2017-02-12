@@ -14,7 +14,7 @@ RUN pip install pandas
 # Get rankboost from github
 RUN git clone https://github.com/arkal/rankboost.git \
     && cd rankboost \
-    && git checkout -b tags/releases/2.0.0
+    && git checkout releases/2.0.0
 
 # get wrapper_scripts
 RUN  git clone https://github.com/arkal/toil_docker_wrappers.git 

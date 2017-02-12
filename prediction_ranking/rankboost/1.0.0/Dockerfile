@@ -13,7 +13,7 @@ RUN apt-get install -y r-base
 # Get rankboost from github
 RUN git clone https://github.com/arkal/rankboost.git \
     && cd rankboost \
-    && git checkout -b tags/releases/1.0.0
+    && git checkout releases/1.0.0
 
 # get wrapper_scripts
 RUN  git clone https://github.com/arkal/toil_docker_wrappers.git 

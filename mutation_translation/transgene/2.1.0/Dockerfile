@@ -1,16 +1,19 @@
 # ProTECT Dockerfile for transgene
 #
 # 
-# Build with: sudo docker build --rm --no-cache -t aarjunrao/transgene:1.0.0 - < Dockerfile
+# Build with: sudo docker build --rm --no-cache -t aarjunrao/transgene:2.1.0 - < Dockerfile
 # Run with sudo docker run -v <IO_folder>:/data aarjunrao/transgene <parameters>
 
 # Use pimmuno
 FROM aarjunrao/pimmuno
 
+RUN apt-get install -y python-pip
+RUN pip install pysam
+
 # Get transgene
 RUN git clone https://github.com/arkal/Transgene.git \
     && cd Transgene \
-    && git checkout releases/1.0.0 \
+    && git checkout releases/2.1.0 \
     && chmod +x transgene.py \
     && cp transgene.py /usr/local/bin
 
