@@ -1,7 +1,7 @@
 # ProTECT base Dockerfile for radia and filter-radia
 #
 # 
-# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/radiabase:398366ef07b5911d8082ed61cbf03d487a41f286 - < base_Dockerfile
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/radiabase:bcda721fc1f9c28d8b9224c2f95c440759cd3a03 - < base_Dockerfile
 
 # Use samtools 
 FROM aarjunrao/samtools
@@ -17,8 +17,9 @@ WORKDIR /home
 RUN curl -L http://sourceforge.net/projects/snpeff/files/snpEff_v3_3_core.zip/download > snpeff.zip; unzip snpeff* ; rm snpeff.zip
 RUN git clone https://github.com/aradenbaugh/radia.git \
     && cd radia \
-    && git checkout 398366ef07b5911d8082ed61cbf03d487a41f286 \
+    && git checkout bcda721fc1f9c28d8b9224c2f95c440759cd3a03 \
     && cd scripts \
     && python -m compileall . \
     && chmod +x ./* \
-    && cp ./* /usr/local/bin
+    && cp ./* /usr/local/bin \
+    && rm -rf /home/radia/data
