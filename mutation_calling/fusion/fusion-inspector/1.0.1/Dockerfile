@@ -9,7 +9,7 @@ FROM aarjunrao/samtools:1.3.1
 MAINTAINER Jacob Pfeil, jpfeil@ucsc.edu
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y dpkg zlib1g-dev gzip perl libdb-dev build-essential make
+    apt-get install -y dpkg zlib1g-dev gzip perl libdb-dev build-essential make unzip libtbb-dev
 
 RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee /etc/apt/sources.list.d/webupd8team-java.list && \
     echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list && \
@@ -27,11 +27,13 @@ RUN wget -qO- https://github.com/FusionInspector/FusionInspector/releases/downlo
     wget -qO- https://github.com/trinityrnaseq/trinityrnaseq/archive/Trinity-v2.4.0.tar.gz | tar xz && \
     cd trinityrnaseq-Trinity-v2.4.0 && make && cd /opt && \
     wget -qO- http://research-pub.gene.com/gmap/src/gmap-gsnap-2016-11-07.tar.gz | tar xz && \
-    cd gmap-2016-11-07 && ./configure && make && make check && make install
+    cd gmap-2016-11-07 && ./configure && make && make check && make install && cd /opt && \
+    wget https://downloads.sourceforge.net/project/bowtie-bio/bowtie2/2.3.1/bowtie2-2.3.1-linux-x86_64.zip && \
+    unzip bowtie2-2.3.1-linux-x86_64.zip && chmod +x /opt/bowtie2-2.3.1/bowtie2*
 
 # FusionInspector needs the TRINITY_HOME environment variable
 ENV TRINITY_HOME "/opt/trinityrnaseq-Trinity-v2.4.0/"
-ENV PATH "/opt/FusionInspector-v1.0.1:/opt/STAR-2.5.2b/bin/Linux_x86_64:$PATH"
+ENV PATH "/opt/bowtie2-2.3.1:/opt/trinityrnaseq-Trinity-v2.4.0:/opt/FusionInspector-v1.0.1:/opt/STAR-2.5.2b/bin/Linux_x86_64:$PATH"
 
 WORKDIR /data
 
