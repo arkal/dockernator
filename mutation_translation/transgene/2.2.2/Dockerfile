@@ -7,10 +7,8 @@
 # Use pimmuno
 FROM aarjunrao/pimmuno
 
-RUN apt-get update
 RUN apt-get install -y python-pip
-RUN pip install pysam==0.10.0 
-RUN pip install swalign==0.3.3
+RUN pip install pysam==0.10.0 swalign==0.3.3
 
 # Get transgene
 RUN git clone https://github.com/arkal/Transgene.git \
