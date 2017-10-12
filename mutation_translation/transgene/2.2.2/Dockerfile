@@ -7,7 +7,7 @@
 # Use pimmuno
 FROM aarjunrao/pimmuno
 
-RUN apt-get install -y python-pip
+RUN apt-get install -y python-pip liblzma-dev libbz2-dev
 RUN pip install pysam==0.10.0 swalign==0.3.3
 
 # Get transgene
