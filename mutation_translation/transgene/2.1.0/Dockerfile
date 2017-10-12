@@ -1,7 +1,7 @@
 # ProTECT Dockerfile for transgene
 #
 # 
-# Build with: sudo docker build --rm --no-cache -t aarjunrao/transgene:2.1.0 - < Dockerfile
+# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/transgene:2.1.0 - < Dockerfile
 # Run with sudo docker run -v <IO_folder>:/data aarjunrao/transgene <parameters>
 
 # Use pimmuno

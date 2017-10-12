@@ -4,7 +4,7 @@
 # Run with sudo docker run -v <IO_folder>:/data aarjunrao/star-fusion:1.0.0 <parameters>
 
 # Use samtools
-FROM aarjunrao/samtools
+FROM aarjunrao/samtools:1.2
 
 MAINTAINER Jacob Pfeil, jpfeil@ucsc.edu
 

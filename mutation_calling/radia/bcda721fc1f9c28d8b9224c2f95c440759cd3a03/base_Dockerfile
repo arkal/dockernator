@@ -4,7 +4,7 @@
 # Build with: sudo docker build --force-rm --no-cache -t aarjunrao/radiabase:bcda721fc1f9c28d8b9224c2f95c440759cd3a03 - < base_Dockerfile
 
 # Use samtools 
-FROM aarjunrao/samtools
+FROM aarjunrao/samtools:1.2
 
 # Install RADIA
 RUN wget -c https://bootstrap.pypa.io/get-pip.py; python get-pip.py

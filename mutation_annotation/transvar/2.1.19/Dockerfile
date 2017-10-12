@@ -1,7 +1,7 @@
 # ProTECT Dockerfile for TransVar
 #
 # 
-# Build with: sudo docker build --rm --no-cache -t aarjunrao/transvar:2.1.19 - < Dockerfile
+# Build with: sudo docker build --force-rm=true --no-cache -t aarjunrao/transvar:2.1.19 - < Dockerfile
 # Run with sudo docker run -v <IO_folder>:/data aarjunrao/transvar <parameters>
 
 # Use pimmuno

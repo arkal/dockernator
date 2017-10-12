@@ -1,7 +1,7 @@
 # ProTECT base Dockerfile for all images
 #
 # 
-# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/pimmuno - < 00_00_init_Dockerfile
+# Build with: sudo docker build --force-rm --no-cache -t aarjunrao/pimmuno - < Dockerfile
 
 # Use ubuntu Trusty 14.04
 FROM ubuntu:14.04

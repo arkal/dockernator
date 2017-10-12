@@ -5,7 +5,7 @@
 # Run with sudo docker run -v <IO_folder>:/data aarjunrao/rsem <parameters>
 
 # Use bowtie
-FROM aarjunrao/bowtie
+FROM aarjunrao/bowtie:2.2.3
 
 # Get the essentials
 RUN apt-get install -y r-base perl-doc
