@@ -7,14 +7,20 @@ then
 fi
 
 # First build the base image
+echo 'docker build --force-rm --no-cache -t aarjunrao/mhcbase - < base_Dockerfile'
 docker build --force-rm --no-cache -t aarjunrao/mhcbase - < base_Dockerfile
 
 ls | while read tool
 do
   ls ${tool} | grep -v build.sh | grep -v base_Dockerfile | while read version
   do
-  	cd ${tool}/${version} && \
-     docker build --force-rm --no-cache -t aarjunrao/${tool}:${version} - < Dockerfile && \
-     cd -
+    if [ "${tool}" == "netmhciipan" ]
+    then
+      continue
+    fi 
+    cd ${tool}/${version} && \
+      echo 'docker build --force-rm --no-cache -t aarjunrao/${tool}:${version} - < Dockerfile' && \
+      docker build --force-rm --no-cache -t aarjunrao/${tool}:${version} - < Dockerfile && \
+      cd -
   done
 done
