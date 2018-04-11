@@ -21,7 +21,7 @@ do
 done
 
 # Now build all other images
-find . -name build.sh | grep -v misc | while read buildfile
+find . -name build.sh | grep -v misc | sort | while read buildfile
 do
   dir=$(dirname ${buildfile})
   cd ${dir} && \

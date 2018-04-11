@@ -5,7 +5,7 @@
 # Run with sudo docker run -v <IO_folder>:/data aarjunrao/phlat <parameters>
 
 # Use bowtie
-FROM aarjunrao/bowtie:2.2.3
+FROM aarjunrao/bowtie2:2.2.3
 
 # Get pip and pysam
 RUN wget -c https://bootstrap.pypa.io/get-pip.py; python get-pip.py
