@@ -6,8 +6,7 @@ then
   exit 1
 fi
 
-# First build the base image
-echo 'docker build --force-rm --no-cache -t aarjunrao/mhcbase - < base_Dockerfile'
+# First build the base images
 docker build --force-rm --no-cache -t aarjunrao/mhcbase - < base_Dockerfile
 
 ls | while read tool
